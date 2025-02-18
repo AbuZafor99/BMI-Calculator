@@ -50,23 +50,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weight="2"
+        android:weightSum="2"
+        android:layout_margin="10dp"
         >
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Height in (cm) "
+            android:hint="Height in (ft) "
             android:layout_margin="5dp"
             android:layout_weight="1"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Height in (cm) "
+            android:hint="Height in (inc) "
             android:layout_margin="5dp"
             android:layout_weight="1"
             />
     </LinearLayout>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        />
 
 
 
