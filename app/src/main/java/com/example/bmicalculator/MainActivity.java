@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -33,14 +32,40 @@ public class MainActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float weight1=Float.parseFloat(weight.getText().toString());
-                float height1=Float.parseFloat(height_ft.getText().toString());
-                float height2=Float.parseFloat(height_inc.getText().toString());
-                double height_m=(height1*0.3048+height2*0.0254) ;
+                try {
+                    float weight1=Float.parseFloat(weight.getText().toString());
+                    float height1=Float.parseFloat(height_ft.getText().toString());
+                    float height2=Float.parseFloat(height_inc.getText().toString());
+                    double height_m=(height1*0.3048+height2*0.0254) ;
 
-                bmi= weight1/(height_m*height_m) ;
+                    bmi= weight1/(height_m*height_m) ;
 
-                displayBMI.setText("আপনার বিএমাই হলঃ "+bmi);
+
+                    String bmiCategory;
+                    if (bmi < 18.5) {
+                        bmiCategory = "কম ওজন";
+                    } else if (bmi < 25) {
+                        bmiCategory = "স্বাভাবিক ওজন";
+                    } else if (bmi < 30) {
+                        bmiCategory = "বেশি ওজন";
+                    } else if (bmi > 30 && bmi < 39.9) {
+                        bmiCategory = "স্থূল";
+                    } else {
+                        bmiCategory = "অতিরিক্ত স্থূল";
+                    }
+
+                    String resultText = String.format(
+                            "আপনার বিএমাই হলঃ %.1f\n %s",
+                            bmi,
+                            bmiCategory
+                    );
+
+                    displayBMI.setText(resultText);
+                } catch (NumberFormatException e) {
+                    displayBMI.setText("দয়া করে সঠিক সংখ্যা ইনপুট দিন");
+                } catch (Exception e) {
+                    displayBMI.setText("গণনা ত্রুটি");
+                }
             }
         });
 
