@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#d3d3c3">
+
+    <!-- BMI Result Display -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:background="#b0b098"
+        android:gravity="center"
+        android:text="BMI Calculator"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/bmiResultText"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="আপনার BMI: "
+        android:textSize="22sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:gravity="center"/>
+
+    <!-- Scrollable Exercise Suggestion -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:src="@drawable/bmimeter"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/exerciseSuggestionText"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:text="এক্সারসাইজ নির্দেশনা লোড হচ্ছে..."
+            android:textSize="18sp"
+            android:textColor="#444444"
+            android:padding="8dp" />
+    </ScrollView>
+
+    <!-- Navigation Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="10dp">
+
+        <!-- Home Button -->
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🏠 হোম"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="10dp"/>
+
+        <!-- Food Button -->
+        <Button
+            android:id="@+id/foodButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="🍎 খাদ্য"
+            android:backgroundTint="#FF9800"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="10dp"/>
+
+        <!-- Exercise Button -->
+        <Button
+            android:id="@+id/exerciseButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="💪 ব্যায়াম"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="10dp"/>
+    </LinearLayout>
+</LinearLayout>

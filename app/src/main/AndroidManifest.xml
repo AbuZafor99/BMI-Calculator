@@ -13,6 +13,10 @@
         android:theme="@style/Theme.BMICalculator"
         tools:targetApi="31">
         <activity
+            android:name=".ExerciseActivity"
+            android:exported="false" />
+        <!-- Main Activity (Launches App) -->
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -20,7 +24,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Food Activity (Receives BMI Data) -->
+        <activity
+            android:name=".FoodActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
