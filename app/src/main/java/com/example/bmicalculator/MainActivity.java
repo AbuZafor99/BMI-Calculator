@@ -1,13 +1,14 @@
 package com.example.bmicalculator;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     TextView displayBMI;
     EditText weight, height_ft, height_inc;
     Button calculate, home, food, exercise;
-    double bmi; // Declaring the BMI variable properly
+    double bmi = 0; // BMI variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +40,19 @@ public class MainActivity extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
+                String weightInput = weight.getText().toString().trim();
+                String heightFtInput = height_ft.getText().toString().trim();
+                String heightInchInput = height_inc.getText().toString().trim();
+
+                if (weightInput.isEmpty() || heightFtInput.isEmpty() || heightInchInput.isEmpty()) {
+                    showErrorDialog("ত্রুটি!", "দয়া করে আপনার ওজন এবং উচ্চতা ইনপুট দিন।");
+                } else {
                     float weight1 = Float.parseFloat(weight.getText().toString());
                     float height1 = Float.parseFloat(height_ft.getText().toString());
                     float height2 = Float.parseFloat(height_inc.getText().toString());
 
                     double height_m = (height1 * 0.3048 + height2 * 0.0254);
-                    bmi = weight1 / (height_m * height_m); // Correctly storing BMI
+                    bmi = weight1 / (height_m * height_m); // Store BMI
 
                     String bmiCategory;
                     if (bmi < 18.5) {
@@ -67,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
                     );
 
                     displayBMI.setText(resultText);
-                } catch (NumberFormatException e) {
-                    displayBMI.setText("দয়া করে সঠিক সংখ্যা ইনপুট দিন");
-                } catch (Exception e) {
-                    displayBMI.setText("গণনা ত্রুটি");
                 }
             }
         });
@@ -81,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(home);
+                Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(homeIntent);
             }
         });
 
@@ -90,17 +93,35 @@ public class MainActivity extends AppCompatActivity {
         food.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-                intent.putExtra("BMI_VALUE", (float) bmi); // Pass the calculated BMI
-                startActivity(intent);
+                String weightInput = weight.getText().toString().trim();
+                String heightFtInput = height_ft.getText().toString().trim();
+                String heightInchInput = height_inc.getText().toString().trim();
+
+                if (weightInput.isEmpty() || heightFtInput.isEmpty() || heightInchInput.isEmpty()) {
+                    showErrorDialog("ত্রুটি!", "দয়া করে আপনার ওজন এবং উচ্চতা ইনপুট দিন।");
+                } else {
+                    Intent intent = new Intent(MainActivity.this, FoodActivity.class);
+                    intent.putExtra("BMI_VALUE", (float) bmi);
+                    startActivity(intent);
+                }
             }
         });
+
+        // Exercise Suggestion Page
         exercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
-                intent.putExtra("BMI_VALUE", (float) bmi); // Pass the calculated BMI
-                startActivity(intent);
+                String weightInput = weight.getText().toString().trim();
+                String heightFtInput = height_ft.getText().toString().trim();
+                String heightInchInput = height_inc.getText().toString().trim();
+
+                if (weightInput.isEmpty() || heightFtInput.isEmpty() || heightInchInput.isEmpty()) {
+                    showErrorDialog("ত্রুটি!", "দয়া করে আপনার ওজন এবং উচ্চতা ইনপুট দিন।");
+                } else {
+                    Intent intent = new Intent(MainActivity.this, ExerciseActivity.class);
+                    intent.putExtra("BMI_VALUE", (float) bmi);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -110,5 +131,19 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    // =========================== Show Popup Error ==========================
+    private void showErrorDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); // Close dialog on button click
+                    }
+                })
+                .show();
     }
 }
